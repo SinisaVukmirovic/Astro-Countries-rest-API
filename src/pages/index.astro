@@ -27,7 +27,7 @@ const data = await results.json();
 
 	<ul id="countries">
 		{data.map((d) => (
-			<li>
+			<li data-country={d.name.common}>
 				<a href={`/country/${d.ccn3}`}>{d.name.common}</a>
 			</li>
 		))}
@@ -35,8 +35,18 @@ const data = await results.json();
 </BaseLayout>
 
 <script>
-	const searchInput = document.querySelector('#search');
-	searchInput.addEventListener('input', e => {
-		console.log(e.target.value);
+	const searchInput = document.querySelector('#search') as HTMLInputElement;
+	const countries = Array.from(document.querySelectorAll('[data-country]'));
+
+	searchInput?.addEventListener('input', e => {
+		const value = e.target?.value.toLowerCase();
+		
+		countries.forEach(c => {
+			if (!c.dataset.country.toLowerCase().includes(value)) {
+				c.classList.add('hidden');
+			} else {
+				c.classList.remove('hidden');
+			}
+		});
 	});
 </script>
