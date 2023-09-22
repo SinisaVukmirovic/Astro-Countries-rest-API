@@ -1,21 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const results = await fetch("https://restcountries.com/v3.1/all");
+const country = Astro.url.searchParams.get('country');
+const results = country
+  ? await fetch(
+      `https://restcountries.com/v3.1/region/${country.toLowerCase()}`
+    )
+  : await fetch("https://restcountries.com/v3.1/all");
 const data = await results.json();
+const regions = ["Africa", "America", "Europe", "Asia", "Oceania"];
 ---
 
 <BaseLayout>
-	<label for="pet-select">Choose a pet:</label>
-
-	<select name="pets" id="pet-select">
-		<option value="">--Please choose an option--</option>
-		<option value="dog">Dog</option>
-		<option value="cat">Cat</option>
-		<option value="hamster">Hamster</option>
-		<option value="parrot">Parrot</option>
-		<option value="spider">Spider</option>
-		<option value="goldfish">Goldfish</option>
+	<label for="pet-select">Filter by Region:</label>
+	<select name="region" id="regions">
+		<option value=''>All</option>
+		{regions.map(r => <option value={r}>{r}</option>)}
 	</select>
 
 	<input
@@ -36,6 +36,8 @@ const data = await results.json();
 
 <script>
 	const searchInput = document.querySelector('#search') as HTMLInputElement;
+	const regionsInput = document.querySelector('#regions') as HTMLSelectElement;
+
 	const countries = Array.from(document.querySelectorAll('[data-country]'));
 
 	searchInput?.addEventListener('input', e => {
@@ -49,4 +51,27 @@ const data = await results.json();
 			}
 		});
 	});
+
+	regionsInput?.addEventListener('change', e => {
+		if (e.target.value === '') {
+			return window.location.assign(window.location.origin);
+		}
+		const url = new URL(window.location.origin);
+		url.searchParams.set('country', e.target.value);
+
+		// Replace current querystring with the new one
+		window.location.assign(url);
+	});
+
+	// window on load
+	function setDropdownInput() {
+		const url = new URL(window.location);
+		const { country } = Object.fromEntries(url.searchParams);
+		if (country) {
+			regionsInput.value = country;
+		}
+	}
+
+	window.addEventListener('DOMContentLoaded', setDropdownInput);
+	document.addEventListener('astro:after-swap', setDropdownInput);
 </script>
