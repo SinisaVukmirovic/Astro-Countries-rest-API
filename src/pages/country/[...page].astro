@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const { page } = Astro.params;
+// const results = await fetch(`https://restcountries.com/v3.1/alpha/${page}`);
+const results = await fetch(`https://restcountries.com/v3.1/alpha/${page}`);
+const data = await results.json();
+---
+
+<BaseLayout title={`${data[0].name.common} | Details`}>
+    <a href="/">Back</a>
+
+    {data[0].name.common}
+</BaseLayout>

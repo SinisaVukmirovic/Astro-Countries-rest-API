@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const results = await fetch("https://restcountries.com/v3.1/all");
+const data = await results.json();
+---
+
+<BaseLayout>
+	<label for="pet-select">Choose a pet:</label>
+
+	<select name="pets" id="pet-select">
+		<option value="">--Please choose an option--</option>
+		<option value="dog">Dog</option>
+		<option value="cat">Cat</option>
+		<option value="hamster">Hamster</option>
+		<option value="parrot">Parrot</option>
+		<option value="spider">Spider</option>
+		<option value="goldfish">Goldfish</option>
+	</select>
+
+	<input
+		type="search"
+		name=""
+		id="search"
+		placeholder="Enter Search Term.."
+	/>
+
+	<ul id="countries">
+		{data.map((d) => (
+			<li>
+				<a href={`/country/${d.ccn3}`}>{d.name.common}</a>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+<script>
+	const searchInput = document.querySelector('#search');
+	searchInput.addEventListener('input', e => {
+		console.log(e.target.value);
+	});
+</script>
