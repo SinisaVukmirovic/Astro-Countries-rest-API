@@ -1,24 +1,35 @@
 ---
-const { name, image, population, region, capital } = Astro.props;
+type Props = {
+    href: string;
+    name: string;
+    image: string;
+    population: number;
+    region: string;
+    capital: string[];
+}
+
+const { href, name, image, population, region, capital } = Astro.props;
 ---
 
 <article>
-    <img src={image} alt={`${name} flag`}>
-    <div>
-        <h2>{name}</h2>
+    <a href={`/country/${href}`}>
+        <img src={image} alt={`${name} flag`}>
         <div>
+            <h2>{name}</h2>
             <div>
-                <p><strong>population</strong></p>
-                <p>{population}</p>
-            </div>
-            <div>
-                <p><strong>Region</strong></p>
-                <p>{region}</p>
-            </div>
-            <div>
-                <p><strong>Capital</strong></p>
-                <p>{capital}</p>
+                <div>
+                    <p><strong>population</strong></p>
+                    <p>{population}</p>
+                </div>
+                <div>
+                    <p><strong>Region</strong></p>
+                    <p>{region}</p>
+                </div>
+                <div>
+                    <p><strong>Capital</strong></p>
+                    <p>{capital}</p>
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 </article>

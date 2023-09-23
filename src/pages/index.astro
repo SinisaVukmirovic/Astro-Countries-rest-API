@@ -8,7 +8,8 @@ const results = country
     )
   : await fetch("https://restcountries.com/v3.1/all");
 const data = await results.json();
-const regions = ["Africa", "America", "Europe", "Asia", "Oceania"];
+
+const regions = ["Africa", "Americas", "Europe", "Asia", "Oceania"];
 
 import countryType from '../types/country.ts';
 1
@@ -32,9 +33,10 @@ import Card from '../components/Card.astro';
 	<section aria-label="Countries!">
 		{data.map((d: countryType) => 
 			<Card 
+				href={d.cca3}
 				name={d.name.common} 
 				population={d.population} 
-				image={d.coatOfArms.png} 
+				image={d.flags.png} 
 				region={d.region}
 				capital={d.capital}
 			/>)}
