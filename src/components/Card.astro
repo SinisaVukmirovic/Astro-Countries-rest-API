@@ -1,0 +1,24 @@
+---
+const { name, image, population, region, capital } = Astro.props;
+---
+
+<article>
+    <img src={image} alt={`${name} flag`}>
+    <div>
+        <h2>{name}</h2>
+        <div>
+            <div>
+                <p><strong>population</strong></p>
+                <p>{population}</p>
+            </div>
+            <div>
+                <p><strong>Region</strong></p>
+                <p>{region}</p>
+            </div>
+            <div>
+                <p><strong>Capital</strong></p>
+                <p>{capital}</p>
+            </div>
+        </div>
+    </div>
+</article>

@@ -9,6 +9,10 @@ const results = country
   : await fetch("https://restcountries.com/v3.1/all");
 const data = await results.json();
 const regions = ["Africa", "America", "Europe", "Asia", "Oceania"];
+
+import countryType from '../types/country.ts';
+1
+import Card from '../components/Card.astro';
 ---
 
 <BaseLayout>
@@ -25,13 +29,16 @@ const regions = ["Africa", "America", "Europe", "Asia", "Oceania"];
 		placeholder="Enter Search Term.."
 	/>
 
-	<ul id="countries">
-		{data.map((d) => (
-			<li data-country={d.name.common}>
-				<a href={`/country/${d.ccn3}`}>{d.name.common}</a>
-			</li>
-		))}
-	</ul>
+	<section aria-label="Countries!">
+		{data.map((d: countryType) => 
+			<Card 
+				name={d.name.common} 
+				population={d.population} 
+				image={d.coatOfArms.png} 
+				region={d.region}
+				capital={d.capital}
+			/>)}
+	</section>
 </BaseLayout>
 
 <script>
