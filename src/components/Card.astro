@@ -5,7 +5,7 @@ type Props = {
     image: string;
     population: number;
     region: string;
-    capital: string[];
+    capital: string;
 }
 
 const { href, name, image, population, region, capital } = Astro.props;
@@ -13,23 +13,57 @@ const { href, name, image, population, region, capital } = Astro.props;
 
 <article>
     <a href={`/country/${href}`}>
-        <img src={image} alt={`${name} flag`}>
+        <img src={image} alt={`${name} flag`} width="250">
         <div>
             <h2>{name}</h2>
-            <div>
+            <div class="country-info">
                 <div>
-                    <p><strong>population</strong></p>
-                    <p>{population}</p>
+                    <p><strong>Population:</strong></p>
+                    <p>{population.toLocaleString()}</p>
                 </div>
                 <div>
-                    <p><strong>Region</strong></p>
+                    <p><strong>Region:</strong></p>
                     <p>{region}</p>
                 </div>
                 <div>
-                    <p><strong>Capital</strong></p>
+                    <p><strong>Capital:</strong></p>
                     <p>{capital}</p>
                 </div>
             </div>
         </div>
     </a>
 </article>
+
+<style>
+    a {
+        text-decoration: none;
+        border: none;
+        outline: none;
+        color: inherit;
+    }
+
+    article {   
+        background-color: #222;
+
+        &:focus-within {
+            outline: 1px solid #eee;
+        }
+
+        & h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top:.5rem;
+        }
+    }
+
+    .country-info {
+        padding: 1rem;
+
+
+    
+        & div {
+            display: flex;
+            gap: .5rem;
+        }
+    }
+</style>

@@ -17,20 +17,26 @@ import Card from '../components/Card.astro';
 ---
 
 <BaseLayout>
-	<label for="pet-select">Filter by Region:</label>
-	<select name="region" id="regions">
-		<option value=''>All</option>
-		{regions.map(r => <option value={r}>{r}</option>)}
-	</select>
+	<section class="search">
+		<div>
+			<input
+				type="search"
+				name=""
+				id="search"
+				placeholder="Enter Search Term.."
+			/>
+		</div>
+		<div>
+			<label for="regions">Filter by Region:</label>
+			<select name="region" id="regions">
+				<option value=''>All</option>
+				{regions.map(r => <option value={r}>{r}</option>)}
+			</select>
+		</div>
+	</section>
+	
 
-	<input
-		type="search"
-		name=""
-		id="search"
-		placeholder="Enter Search Term.."
-	/>
-
-	<section aria-label="Countries!">
+	<section aria-label="Countries!" class="countries">
 		{data.map((d: countryType) => 
 			<Card 
 				href={d.cca3}
@@ -42,6 +48,22 @@ import Card from '../components/Card.astro';
 			/>)}
 	</section>
 </BaseLayout>
+
+<style>
+	section.search {
+		padding: 2rem 5%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	section.countries {
+		padding: 2rem 5%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+</style>
 
 <script>
 	const searchInput = document.querySelector('#search') as HTMLInputElement;
