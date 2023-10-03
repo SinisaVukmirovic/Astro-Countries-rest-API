@@ -12,9 +12,22 @@ const data = (await results.json()) as countryType[];
 <BaseLayout title={`${data[0].name.common} | Details`}>
     <button class="backBtn">Back</button>
     <section aria-label={`Info about ${data[0].name.common}`}>
-        <p>Native Name:</p>
-        <h1>{data[0].name.common}</h1>
-        <!-- <img src={data[0].flags} alt="flag"> -->
+        <img src={data[0].flags.png} alt="flag">
+        <div class="details">
+            <div>
+                <p>Native Name:</p>
+                <h1>{data[0].name.common}</h1>
+            </div>
+            <div>
+                <p><strong>Population:</strong> {data[0].population.toLocaleString()}</p>
+            </div>
+            <div>
+                <p>Subregion: {data[0].subregion}</p>
+            </div>
+            <div>
+                <p>Capital: {data[0].capital}</p>
+            </div>
+        </div>
     </section>
 </BaseLayout>
 
@@ -25,6 +38,14 @@ const data = (await results.json()) as countryType[];
         padding: .5rem 1rem;
         outline: none;
         border: none;
+    }
+
+    section {
+        width: fit-content;
+        margin: 5rem auto;
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(2, 1fr);
     }
 </style>
 

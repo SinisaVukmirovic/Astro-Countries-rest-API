@@ -45,7 +45,8 @@ const { href, name, image, population, region, capital } = Astro.props;
     article {   
         background-color: #222;
 
-        &:focus-within {
+        &:focus-within,
+        &:hover {
             outline: 1px solid #eee;
         }
 
