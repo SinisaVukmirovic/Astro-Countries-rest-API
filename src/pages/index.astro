@@ -12,7 +12,7 @@ const data = await results.json();
 const regions = ["Africa", "Americas", "Europe", "Asia", "Oceania"];
 
 import countryType from '../types/country.ts';
-1
+
 import Card from '../components/Card.astro';
 ---
 
@@ -58,9 +58,8 @@ import Card from '../components/Card.astro';
 
 	section.countries {
 		padding: 2rem 5%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 2rem;
 	}
 </style>
