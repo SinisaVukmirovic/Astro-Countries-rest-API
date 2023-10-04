@@ -7,25 +7,37 @@ const { page } = Astro.params;
 const results = await fetch(`https://restcountries.com/v3.1/alpha/${page}`);
 
 const data = (await results.json()) as countryType[];
+const country = data[0];
+
+const allCountries = await fetch('https://restcountries.com/v3.1/all');
+const dataCountries = await allCountries.json();
+const borderCountries = dataCountries.filter((c: countryType) => 
+    country.borders.includes(c.cioc));
 ---
 
-<BaseLayout title={`${data[0].name.common} | Details`}>
+<BaseLayout title={`${country.name.common} | Details`}>
     <button class="backBtn">Back</button>
-    <section aria-label={`Info about ${data[0].name.common}`}>
-        <img src={data[0].flags.png} alt="flag">
+    <section aria-label={`Info about ${country.name.common}`}>
+        <img src={country.flags.png} alt="flag">
         <div class="details">
-            <div>
-                <p>Native Name:</p>
-                <h1>{data[0].name.common}</h1>
-            </div>
-            <div>
-                <p><strong>Population:</strong> {data[0].population.toLocaleString()}</p>
-            </div>
-            <div>
-                <p>Subregion: {data[0].subregion}</p>
-            </div>
-            <div>
-                <p>Capital: {data[0].capital}</p>
+            <h1>{country.name.common}</h1>
+            <div class="country-info">
+                <p><strong>Native Name:</strong> {country.name.common}</p>
+            <!-- </div> -->
+            <!-- <div> -->
+                <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
+            <!-- </div> -->
+            <!-- <div> -->
+                <p><strong>Subregion:</strong> {country.subregion}</p>
+            <!-- </div> -->
+            <!-- <div> -->
+                <p><strong>Capital:</strong> {country.capital}</p>
+                <div class="border-countries">
+                    <p>Bordering Counries:</p>
+                    {borderCountries.map(c => (
+                        <span>{c.name.common}</span>
+                    ))}
+                </div>
             </div>
         </div>
     </section>
@@ -46,6 +58,32 @@ const data = (await results.json()) as countryType[];
         display: grid;
         place-items: center;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .country-info {
+        padding: 1rem 0 0;
+
+        & p {
+            margin-bottom: .5rem;
+        }
+    }
+
+    /* just HTML tag didn't work? */
+    strong {
+        font-weight: bold;
+        margin-right: .5rem;
+    }
+
+    span {
+        padding: .25rem .5rem;
+        margin-inline: .25rem;
+        /* border: 1px solid #555; */
+        background-color: #444;
+        border-radius: .25rem;
     }
 </style>
 
