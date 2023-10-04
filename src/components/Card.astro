@@ -13,7 +13,7 @@ const { href, name, image, population, region, capital } = Astro.props;
 
 <article>
     <a href={`/country/${href}`}>
-        <img src={image} alt={`${name} flag`}>
+        <img src={image} alt={`${name} flag`} transition:name={image}>
         <div>
             <h2>{name}</h2>
             <div class="country-info">

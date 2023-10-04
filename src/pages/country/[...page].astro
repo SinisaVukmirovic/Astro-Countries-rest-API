@@ -18,19 +18,13 @@ const borderCountries = dataCountries.filter((c: countryType) =>
 <BaseLayout title={`${country.name.common} | Details`}>
     <button class="backBtn">Back</button>
     <section aria-label={`Info about ${country.name.common}`}>
-        <img src={country.flags.png} alt="flag">
+        <img src={country.flags.png} alt="flag" transition:name={country.flags.png}>
         <div class="details">
             <h1>{country.name.common}</h1>
             <div class="country-info">
                 <p><strong>Native Name:</strong> {country.name.common}</p>
-            <!-- </div> -->
-            <!-- <div> -->
                 <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
-            <!-- </div> -->
-            <!-- <div> -->
                 <p><strong>Subregion:</strong> {country.subregion}</p>
-            <!-- </div> -->
-            <!-- <div> -->
                 <p><strong>Capital:</strong> {country.capital}</p>
                 <div class="border-countries">
                     <p>Bordering Counries:</p>
@@ -50,6 +44,7 @@ const borderCountries = dataCountries.filter((c: countryType) =>
         padding: .5rem 1rem;
         outline: none;
         border: none;
+        cursor: pointer;
     }
 
     section {
