@@ -12,7 +12,7 @@ const country = data[0];
 const allCountries = await fetch('https://restcountries.com/v3.1/all');
 const dataCountries = await allCountries.json();
 const borderCountries = dataCountries.filter((c: countryType) => 
-    country.borders.includes(c.cioc));
+    country?.borders?.includes(c.cioc));
 ---
 
 <BaseLayout title={`${country.name.common} | Details`}>
@@ -20,7 +20,7 @@ const borderCountries = dataCountries.filter((c: countryType) =>
     <section aria-label={`Info about ${country.name.common}`}>
         <img src={country.flags.png} alt="flag" transition:name={country.flags.png}>
         <div class="details">
-            <h1>{country.name.common}</h1>
+            <h1 transition:name={country.cioc}>{country.name.common}</h1>
             <div class="country-info">
                 <p><strong>Native Name:</strong> {country.name.common}</p>
                 <p><strong>Population:</strong> {country.population.toLocaleString()}</p>

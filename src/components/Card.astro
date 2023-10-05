@@ -5,17 +5,18 @@ type Props = {
     image: string;
     population: number;
     region: string;
-    capital: string;
+    capital: string[];
+    cioc: string;
 }
 
-const { href, name, image, population, region, capital } = Astro.props;
+const { href, name, image, population, region, capital, cioc, ...rest } = Astro.props;
 ---
 
-<article>
+<article {...rest}>
     <a href={`/country/${href}`}>
         <img src={image} alt={`${name} flag`} transition:name={image}>
         <div>
-            <h2>{name}</h2>
+            <h2 transition:name={cioc}>{name}</h2>
             <div class="country-info">
                 <div>
                     <p><strong>Population:</strong></p>

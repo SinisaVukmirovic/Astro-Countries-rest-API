@@ -1,4 +1,13 @@
-### Astro Rest Countries API
+## Astro Rest Countries API
 ___
 
-#### Pause in development due to laptop screen break...
+### In development
+
+#### To make routing work, in in astro.config.mjs 
+```
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  output: 'server'
+});
+```

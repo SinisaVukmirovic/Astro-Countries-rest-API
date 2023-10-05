@@ -37,13 +37,15 @@ import Card from '../components/Card.astro';
 
 	<section aria-label="Countries!" class="countries">
 		{data.map((d: countryType) => 
-			<Card 
+			<Card
+				data-country={d.name.common}
 				href={d.cca3}
 				name={d.name.common} 
 				population={d.population} 
 				image={d.flags.png} 
 				region={d.region}
 				capital={d.capital}
+				cioc={d.cioc}
 			/>)}
 	</section>
 </BaseLayout>
